@@ -1,8 +1,11 @@
+import Post from "./post"
 
 function App() {
-
   return (
-   <h1>Hello world</h1>
+    <div>
+      <Post authror="Flavio" content="My Content" />
+      <Post authror="John Doe" content="lorem ipsum dolor sit amet" />
+    </div>
   )
 }
 
