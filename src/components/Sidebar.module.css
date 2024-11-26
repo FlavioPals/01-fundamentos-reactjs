@@ -46,11 +46,17 @@
     padding: 0 1.5rem;
     font-weight: bold;
     display: block;
-      text-decoration: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.sidebar footer a:hover {
+  background: var(--green-500);
+  color: var(--white);
 }
 
 .avatar {
