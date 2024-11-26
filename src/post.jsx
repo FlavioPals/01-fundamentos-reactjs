@@ -1,4 +1,4 @@
-function Post(props) {
+export function Post(props) {
     console.log(props)
     return (
         <div>
@@ -7,5 +7,3 @@ function Post(props) {
         </div>
     )
 }
-
-export default Post
