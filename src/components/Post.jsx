@@ -1,13 +1,25 @@
 import styles from './Post.module.css';
 import {Comment} from './Comment'
 import { Avatar } from './Avatar';
-export function Post({author,publishedAt}){ {
-  const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-  }).format(publishedAt);
+import { useState } from 'react';
+export function Post({author, publishedAt, content}){ {
+  const [comments, setComments] = useState([
+    'Comentário 1',
+  ])
+  //estado = variaveis que eu quero que o componente monitore
 
+  const [newCommentText, setNewCommentText] = useState('');
+
+  function handleCreateNewComment() {
+    event.preventDefault()
+
+
+    setComments([...comments, newCommentText]);
+    setNewCommentText('');
+  }
+    function handleNewCommentChange() {
+    setNewCommentText(event.target.value);
+  }
   return (
     <article className={styles.post}>
       <header>
@@ -23,20 +35,22 @@ export function Post({author,publishedAt}){ {
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais um projeto no meu portifa. O nome do projeto é DoctorCare 🚀</p>
-        <p>👉<a href="">jane.design/doctorcare</a></p>
-        <p><a href="">#novoprojeto</a></p>
-        <p><a href="">jane.design/doctorcare</a></p>
-        <p>
-          <a href="">#novoprojeto</a>{' '}
-        </p>
-      </div>
+        {content.map(line => {
+          if (line.type === 'paragraph') {
+            return <p key={line.content}>{line.content}</p>;
+          } else if (line.type === 'link') {
+            return <p key={line.content}><a href="#">{line.content}</a></p>
+          }
+        })}
+        </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
         <textarea
+          name="comment"
           placeholder="Deixe um comentário"
+          value={newCommentText}
+          onChange={handleNewCommentChange}
         />
         <footer>
           <button type="submit">Publicar</button>
@@ -44,11 +58,9 @@ export function Post({author,publishedAt}){ {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+     {comments.map(comment => {
+      return <Comment content={comment} />
+      })}
       </div>
     </article>
   )
